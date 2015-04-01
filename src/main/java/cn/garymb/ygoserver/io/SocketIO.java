@@ -78,7 +78,7 @@ public class SocketIO implements IOInterface {
 		return 0;
 	}
 
-	public long gettotalBytesReceived() {
+	public long getTotalBytesReceived() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

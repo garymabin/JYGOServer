@@ -28,7 +28,7 @@ public interface IOInterface {
 	
 	long getBytesReceived(boolean reset);
 	
-	long gettotalBytesReceived();
+	long getTotalBytesReceived();
 	
 	long getBuffOverflow(boolean reset);
 	
