@@ -12,6 +12,7 @@ public final class YGOCoreMain {
 	public static void main(final String[] args) {
 		parseParams(args);		
 		start(args);
+		
 	}
 
 	private static void start(String[] args) {
