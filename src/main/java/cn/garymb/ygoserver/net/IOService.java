@@ -58,6 +58,26 @@ public abstract class IOService<RefObject> implements Callable<IOService<?>> {
 			}
 			socketIO = new SocketIO(socketChannel);
 		} catch (IOException e) {
+			String host = (String) sessionData.get("remote-hostname");
+
+			if (host == null) {
+				host = (String) sessionData.get("remote-host");
+			}
+
+			String sock_str = null;
+
+			try {
+				sock_str = socketChannel.socket().toString();
+			} catch (Exception ex) {
+				sock_str = ex.toString();
+			}
+			log.log(Level.FINER,
+					"Problem connecting to remote host: {0}, address: {1}, socket: {2} - exception: {3}, session data: {4}",
+					new Object[] { host,
+					remote_address, sock_str, e, sessionData });
+
+			throw e;
+
 			
 		}
 		socketInputSize = socketIO.getSocketChannel().socket().getReceiveBufferSize();
@@ -319,7 +339,6 @@ public abstract class IOService<RefObject> implements Callable<IOService<?>> {
 			}
 		} catch (BufferUnderflowException ex) {
 			resizeInputBuffer();
-
 			return readBytes();
 		} catch (Exception eof) {
 			if (log.isLoggable(Level.FINEST)) {
