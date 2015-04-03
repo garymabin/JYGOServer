@@ -1,3 +1,8 @@
+/**
+ * YGOIOService.java
+ * author: mabin
+ * 2015年4月2日
+ */
 package cn.garymb.ygoserver.ygo;
 
 import java.io.IOException;
