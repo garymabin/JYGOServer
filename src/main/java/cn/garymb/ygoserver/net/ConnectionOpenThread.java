@@ -76,7 +76,7 @@ public class ConnectionOpenThread implements Runnable {
 		try {
 			selector = Selector.open();
 		} catch (Exception e) {
-			log.log(Level.SEVERE, "Server I/O error, can't continue my wokr");
+			log.log(Level.SEVERE, "Server I/O error, can't continue my work");
 			stopping = true;
 		}
 	}
@@ -130,7 +130,7 @@ public class ConnectionOpenThread implements Runnable {
 							if (port_throttling.lasgSecondConnections > port_throttling.throttling) {
 								if (log.isLoggable(Level.FINER)) {
 									log.log(Level.FINER,
-											"New connections throttling level exceeded, closing: {0}, sc");
+											"New connections throttling level exceeded, closing: {0}", sc);
 								}
 								sc.close();
 								sc = null;

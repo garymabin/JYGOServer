@@ -1,7 +1,7 @@
 /**
  * Duel.java
  * author: mabin
- * 下午5:32:06
+ * 2015年4月2日
  */
 package cn.garymb.ygoserver.ygo.ocgwrapper;
 

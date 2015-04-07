@@ -73,7 +73,7 @@ public final class ConfigManager {
 		return getStringValue(PropertyKey.SCRIPTS_DIR, PropertyKey.SCRIPTS_DIR_DEF_VALUE);
 	}
 	
-	public String getDataBaseDir() {
+	public String getDataBasePath() {
 		return getStringValue(PropertyKey.CARD_DB_FILE, PropertyKey.CARD_DB_FILE_DEF_VALUE);
 	}
 	
