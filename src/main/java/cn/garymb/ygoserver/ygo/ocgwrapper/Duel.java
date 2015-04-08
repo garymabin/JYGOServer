@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.garymb.ygoserver.ygo.ocgwrapper.enums.CardLocation;
+import cn.garymb.ygoserver.ygo.ocgwrapper.type.CardLocation;
 import cn.garymb.ygoserver.ygo.ocgwrapper.util.MTRandom;
 
 /**

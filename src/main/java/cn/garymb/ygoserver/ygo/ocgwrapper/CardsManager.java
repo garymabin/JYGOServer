@@ -21,7 +21,7 @@ public final class CardsManager {
 	
 	private static final Logger log  = Logger.getLogger(CardsManager.class.getName());
 	
-	private Map<Integer, Card> cards = new HashMap<Integer, Card>();
+	private Map<Integer, Card> mCards = new HashMap<Integer, Card>();
 	
 	private static CardsManager INSTANCE;
 	
@@ -43,7 +43,7 @@ public final class CardsManager {
 				c.attr = st.columnInt(7);
 				c.attack = st.columnInt(8);
 				c.defense = st.columnInt(9);
-				cards.put(id, c);
+				mCards.put(id, c);
 			}
 		} finally {
 			st.dispose();
@@ -61,5 +61,9 @@ public final class CardsManager {
 			}
 		}
 		return INSTANCE;
+	}
+	
+	public Card getCard(int id) {
+		return mCards.get(id);
 	}
 }

@@ -1,4 +1,9 @@
-package cn.garymb.ygoserver.ygo.ocgwrapper.enums;
+/**
+ * CardLocation.java
+ * author: mabin
+ * 2015年4月8日
+ */
+package cn.garymb.ygoserver.ygo.ocgwrapper.type;
 
 public enum CardLocation {
 	
