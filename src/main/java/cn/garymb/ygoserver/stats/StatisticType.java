@@ -10,7 +10,7 @@ public enum StatisticType {
 	MAX_QUEUE_SIZE("Max queue size", "int"),
 	MSG_RECEIVED_OK("Packets send", "long"),
 	MSG_SENT_OK("Packets sent", "long"),
-	IN_QUEUE_OVER("IN Queue overflow", "long"),
+	IN_QUEUE_OVERFLOW("IN Queue overflow", "long"),
 	OUT_QUEUE_OVERFLOW("OUT Queue overflow", "long"),
 	LIST(null, "list"),
 	OTHER(null, null);

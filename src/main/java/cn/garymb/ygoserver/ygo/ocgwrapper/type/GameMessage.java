@@ -98,5 +98,46 @@ public final class GameMessage {
 	public static final int DUEL_WINNER = 200;
 	
 	
+	public static final int CTOS_RESPONSE = 0x1;
+	public static final int CTOS_UPDATE_DECK = 0x2;
+	public static final int CTOS_HANDLE_RESULT = 0x3;
+	public static final int CTOS_TP_RESULT = 0x4;
+	public static final int CTOS_PLAYER_INFO = 0x10;
+	public static final int CTOS_CREATE_GAME = 0x11;
+	public static final int CTOS_JOIN_GAME = 0x12;
+	public static final int CTOS_LEAVE_GAME = 0x13;
+	public static final int CTOS_SURRENDER = 0x14;
+	public static final int CTOS_TIME_CONFIRM = 0x15;
+	public static final int CTOS_CHAT = 0x16;
+	public static final int CTOS_HS_TO_DUEL_LIST = 0x20;
+	public static final int CTOS_HS_TO_OBSERVER = 0x21;
+	public static final int CTOS_HS_READY = 0x22;
+	public static final int CTOS_HS_NOT_READY = 0x23;
+	public static final int CTOS_HS_KICK = 0x24;
+	public static final int CTOS_HS_START = 0x25;
+	
+	public static final int STOC_GAME_MSG = 0x1;
+	public static final int STOC_ERROR_MSG = 0x2;
+	public static final int STOC_SELECT_HAND = 0x3;
+	public static final int STOC_SELECT_TP = 0x4;
+	public static final int STOC_HANDLE_RESULT = 0x5;
+	public static final int STOC_TP_RESULT = 0x6;
+	public static final int STOC_CHANGE_SIDE = 0x7;
+	public static final int STOC_WAITING_SIDE = 0x8;
+	public static final int STOC_CREATE_GAME = 0x11;
+	public static final int STOC_JOIN_GAME = 0x12;
+	public static final int STOC_TYPE_CHANGE = 0x13;
+	public static final int STOC_LEAVE_GAME = 0x14;
+	public static final int STOC_DUEL_START = 0x15;
+	public static final int STOC_DUEL_END = 0x16;
+	public static final int STOC_REPLAY = 0x17;
+	public static final int STOC_TIME_LIMIT = 0x18;
+	public static final int STOC_CHAT = 0x19;
+	public static final int STOC_HS_PLAYER_ENTER = 0x20;
+	public static final int STOC_HS_PLAYER_CHANGE = 0x21;
+	public static final int STOC_HS_WATCH_CHANGE = 0x22;
+	
+	
+	
 	
 }

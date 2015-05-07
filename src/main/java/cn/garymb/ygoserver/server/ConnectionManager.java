@@ -10,11 +10,17 @@ import java.util.logging.Logger;
 import cn.garymb.ygoserver.net.ConnectionOpenThread;
 import cn.garymb.ygoserver.ygo.YGOIOService;
 
-public class ConnectionManager<IO extends YGOIOService<?>> {
+public class ConnectionManager<IO extends YGOIOService<?>> extends AbstractMessageReceiver {
 	
 	private static final Logger         log = Logger.getLogger(ConnectionManager.class
 			.getName());
 	
 	private static ConnectionOpenThread connectThread = ConnectionOpenThread.getInstance();
+
+	@Override
+	public void processPacket(Packet packet) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
