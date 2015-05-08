@@ -39,5 +39,10 @@ public class Packet {
 	public String getTo() {
 		return null;
 	}
+	
+	@Override
+	public int hashCode() {
+		return mId.hashCode();
+	}
 
 }

@@ -445,5 +445,9 @@ public abstract class IOService<RefObject> implements Callable<IOService<?>> {
 	private void setLastTransferTime() {
 		lastTransferTime = System.currentTimeMillis();
 	}
+	
+	public void startSSL(boolean clientMode, boolean wantClientAuth) throws IOException {
+		//TODO
+	}
 
 }

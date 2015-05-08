@@ -571,7 +571,7 @@ public abstract class AbstractMessageReceiver extends BasicComponent implements
 		}, HOUR, HOUR);
 	}
 
-	private int hashCodeForPacket(Packet packet) {
+	public int hashCodeForPacket(Packet packet) {
 		return packet.hashCode();
 	}
 
