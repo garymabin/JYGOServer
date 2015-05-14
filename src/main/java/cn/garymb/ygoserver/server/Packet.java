@@ -23,6 +23,10 @@ public class Packet {
 		mBuffer.get(result);
 		return result;
 	}
+	
+	public byte[] getBytes() {
+		return mBuffer.array();
+	}
 
 	public Enum<Priority> getPriority() {
 		return Priority.NORMAL;
@@ -43,6 +47,10 @@ public class Packet {
 	@Override
 	public int hashCode() {
 		return mId.hashCode();
+	}
+
+	public int getType() {
+		return 0;
 	}
 
 }

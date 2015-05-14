@@ -139,6 +139,8 @@ public abstract class IOService<RefObject> implements Callable<IOService<?>> {
 		}
 	}
 	
+	public abstract void processWaitingPackets() throws IOException;
+	
 	public void forceStop() {
 		if (log.isLoggable(Level.FINER)) {
 			log.log(Level.FINER, "Socket: {0}, Force stop called...", socketIO);

@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -410,6 +411,8 @@ public abstract class ConnectionManager<IO extends YGOIOService<?>> extends
 	
 	protected abstract IO getYGOIOService();
 	
+	public abstract Queue<Packet> processSocketData(IO serv);
+	
 	public abstract void reconnectionFailed(Map<String, Object> port_props);
 
 	protected void doForAllServices(ServiceChecker<IO> checker) {
@@ -465,6 +468,92 @@ public abstract class ConnectionManager<IO extends YGOIOService<?>> extends
 		if (checkTrafficLimits(serv)) {
 			writePacketsToSocket(serv, processSocketData(serv));
 		}		
+	}
+	
+	/**
+	 * Method description
+	 *
+	 *
+	 * @param serv
+	 * @param packets
+	 */
+	public void writePacketsToSocket(IO serv, Queue<Packet> packets) {
+		if (serv != null) {
+
+			// synchronized (serv) {
+			if ((packets != null) && (packets.size() > 0)) {
+				Packet p = null;
+
+				while ((p = packets.poll()) != null) {
+					if (log.isLoggable(Level.FINER) &&!log.isLoggable(Level.FINEST)) {
+						log.log(Level.FINER, "{0}, Processing packet: type: {1}", new Object[] {
+								serv, p.getType() });
+					}
+					if (log.isLoggable(Level.FINEST)) {
+						log.log(Level.FINEST, "{0}, Writing packet: {1}", new Object[] { serv, p });
+					}
+					serv.addPacketToSend(p);
+				}      // end of for ()
+				try {
+					serv.processWaitingPackets();
+					SocketThread.addSocketService(serv);
+				} catch (Exception e) {
+					log.log(Level.WARNING, serv + "Exception during writing packets: ", e);
+					try {
+						serv.stop();
+					} catch (Exception e1) {
+						log.log(Level.WARNING, serv + "Exception stopping XMPPIOService: ", e1);
+					}    // end of try-catch
+				}      // end of try-catch
+			}
+
+			// }
+		} else {
+			if (log.isLoggable(Level.FINE)) {
+				log.log(Level.FINE, "Can't find service for packets: [{0}] ", packets);
+			}
+		}          // end of if (ios != null) else
+	}
+	
+	public boolean writePacketToSocket(IO ios, Packet p) {
+		if (ios != null) {
+			if (log.isLoggable(Level.FINER) &&!log.isLoggable(Level.FINEST)) {
+				log.log(Level.FINER, "{0}, Processing packet: type: {1}", new Object[] { ios, p.getType() });
+			}
+			if (log.isLoggable(Level.FINEST)) {
+				log.log(Level.FINEST, "{0}, Writing packet: {1}", new Object[] { ios, p });
+			}
+
+			// synchronized (ios) {
+			ios.addPacketToSend(p);
+			if (ios.writeInProgress.tryLock()) {
+				try {
+					ios.processWaitingPackets();
+					SocketThread.addSocketService(ios);
+
+					return true;
+				} catch (Exception e) {
+					log.log(Level.WARNING, ios + "Exception during writing packets: ", e);
+					try {
+						ios.stop();
+					} catch (Exception e1) {
+						log.log(Level.WARNING, ios + "Exception stopping XMPPIOService: ", e1);
+					}    // end of try-catch
+				} finally {
+					ios.writeInProgress.unlock();
+				}
+			}
+
+			// }
+		} else {
+			if (log.isLoggable(Level.FINE)) {
+				log.log(Level.FINE, "Can''t find service for packet: <{0}> {1}",
+						new Object[] { p.toString(),
+						p.getTo() });
+			}
+		}    // end of if (ios != null) else
+
+		return false;
 	}
 	
 	public void updateConnectionDetails(Map<String, Object> port_props) {}
