@@ -3,7 +3,7 @@
  * author: mabin
  * 2015年4月2日
  */
-package cn.garymb.ygoserver.server;
+package cn.garymb.ygoserver.ygo;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -23,11 +23,12 @@ import cn.garymb.ygoserver.net.ConnectionOpenThread;
 import cn.garymb.ygoserver.net.ConnectionType;
 import cn.garymb.ygoserver.net.SocketThread;
 import cn.garymb.ygoserver.net.SocketType;
+import cn.garymb.ygoserver.server.AbstractMessageReceiver;
+import cn.garymb.ygoserver.server.Packet;
+import cn.garymb.ygoserver.server.ServiceChecker;
 import cn.garymb.ygoserver.stats.StatisticList;
-import cn.garymb.ygoserver.ygo.YGOIOService;
-import cn.garymb.ygoserver.ygo.YGOIOServiceListener;
 
-public abstract class ConnectionManager<IO extends YGOIOService<?>> extends
+public abstract class YGOConnectionManager<IO extends YGOIOService<?>> extends
 		AbstractMessageReceiver implements YGOIOServiceListener<IO>{
 
 	private class ConnectionListenerImpl implements ConnectionOpenListener {
@@ -59,7 +60,7 @@ public abstract class ConnectionManager<IO extends YGOIOService<?>> extends
 
 			IO serv = getYGOIOService();
 
-			serv.setIOServiceListener(ConnectionManager.this);
+			serv.setIOServiceListener(YGOConnectionManager.this);
 			serv.setSessionData(port_props);
 			try {
 				serv.accept(sc);
@@ -261,7 +262,7 @@ public abstract class ConnectionManager<IO extends YGOIOService<?>> extends
 		}
 	}
 
-	private static final Logger log = Logger.getLogger(ConnectionManager.class
+	private static final Logger log = Logger.getLogger(YGOConnectionManager.class
 			.getName());
 
 	protected static final long LAST_MINUTE_PACKETS_LIMIT_PROP_VAL = 2500L;
@@ -637,6 +638,37 @@ public abstract class ConnectionManager<IO extends YGOIOService<?>> extends
 		++services_size;
 
 		// }
+	}
+	
+	public boolean serviceStopped(IO service) {
+		String id = getUniqueId(service);
+
+		if (log.isLoggable(Level.FINER)) {
+			log.log(Level.FINER, "[[{0}]] Connection stopped: {1}", new Object[] { getName(),
+					service });
+		}
+
+		// id might be null if service is stopped in accept method due to
+		// an exception during establishing TCP/IP connection
+		// IO serv = (id != null ? services.get(id) : null);
+		if (id != null) {
+			boolean result = services.remove(id, service);
+
+			if (result) {
+				--services_size;
+			} else if (log.isLoggable(Level.FINER)) {
+
+				// Is it at all possible to happen???
+				// let's log it for now....
+				log.log(Level.FINER, "[[{0}]] Attempt to stop incorrect service: {1}",
+						new Object[] { getName(),
+						service });
+			}
+
+			return result;
+		}
+
+		return false;
 	}
 
 	protected String getUniqueId(IO service) {

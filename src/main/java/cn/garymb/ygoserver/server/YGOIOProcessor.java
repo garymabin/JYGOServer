@@ -8,6 +8,7 @@ package cn.garymb.ygoserver.server;
 import java.io.IOException;
 import java.util.Map;
 
+import cn.garymb.ygoserver.ygo.YGOConnectionManager;
 import cn.garymb.ygoserver.ygo.YGOIOService;
 
 
@@ -72,7 +73,7 @@ public interface YGOIOProcessor {
 	 * 
 	 * @param connectionManager 
 	 */
-	void setConnectionManager(ConnectionManager connectionManager);
+	void setConnectionManager(YGOConnectionManager connectionManager);
 	
 	/**
 	 * Method used for setting properties

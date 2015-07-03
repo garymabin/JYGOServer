@@ -107,7 +107,7 @@ public class ConnectionOpenThread implements Runnable {
 		while (!stopping) {
 			try {
 				selector.select();
-				for (Iterator i = selector.selectedKeys().iterator(); i
+				for (Iterator<SelectionKey> i = selector.selectedKeys().iterator(); i
 						.hasNext();) {
 					SelectionKey sk = (SelectionKey) i.next();
 					i.remove();
