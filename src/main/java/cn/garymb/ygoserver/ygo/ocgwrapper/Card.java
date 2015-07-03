@@ -26,7 +26,7 @@ public class Card {
 		this.setId(id);
 		this.setOt(ot);
 	}
-
+	
 	public int getId() {
 		return id;
 	}

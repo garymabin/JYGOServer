@@ -50,6 +50,7 @@ public abstract class IOService<RefObject> implements Callable<IOService<?>> {
 	private String local_address;
 	private String remote_address;
 	private String id;
+	private String conncetionId;
 
 	public void accept(final SocketChannel socketChannel) throws IOException {
 		try {
@@ -309,6 +310,14 @@ public abstract class IOService<RefObject> implements Callable<IOService<?>> {
 	
 	protected boolean isInputBufferEmpty() {
 		return (socketInput != null) && (socketInput.remaining() == socketInput.capacity());
+	}
+	
+	public void setConnectionId(String connectionId) {
+		this.conncetionId = connectionId;
+	}
+	
+	public String getConncetionId() {
+		return this.conncetionId;
 	}
 	
 	protected ByteOrder byteOrder() {

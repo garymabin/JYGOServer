@@ -7,5 +7,9 @@ public class GameClient extends YGOIOService<Object> {
 	public GameClient() {
 		mPlayer = new Player(this);
 	}
-
+	
+	public Player getBoundedPlayer() {
+		return mPlayer;
+	}
+	
 }

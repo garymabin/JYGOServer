@@ -11,8 +11,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class ConfigManager {
-	private static final Logger log = Logger.getLogger("cn.garymb.ygoserver.ConfigManager");
+public final class Configurator {
+	private static final Logger log = Logger.getLogger("cn.garymb.ygoserver.conf.Configurator");
 	
 	private static final String CONFIGFILE = System.getProperty("user.dir") + File.separator + "conf//ygoserver.properties";
 	
@@ -20,9 +20,7 @@ public final class ConfigManager {
 	
 	private Properties mProperties;
 	
-	private static ConfigManager INSTANCE;
-	
-	private ConfigManager() {
+	public Configurator() {
 		mFile = new File(CONFIGFILE);
 		if (!mFile.exists()) {
 			log.log(Level.WARNING, "config file does not exist.");
@@ -33,13 +31,6 @@ public final class ConfigManager {
 		} catch (Exception e) {
 			log.log(Level.SEVERE, "load properties faile.");
 		}
-	}
-	
-	public static ConfigManager peekInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new ConfigManager();
-		}
-		return INSTANCE;
 	}
 	
 	private int getIntegerValue(String key, int defValue) {
@@ -95,5 +86,9 @@ public final class ConfigManager {
 	
 	public int getOperationTimeout() {
 		return getIntegerValue(PropertyKey.OP_TIMEOUT, PropertyKey.OP_TIMEOUT_DEF_VALUE);
+	}
+	
+	public String getYGOServerClassName() {
+		return PropertyKey.DEF_CLIENTS_MANAGER_CLASS_NAME;
 	}
 }

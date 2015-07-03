@@ -90,5 +90,10 @@
   		<artifactId>native-maven-plugin</artifactId>
   		<version>[1.0-alpha-8, )</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.b1.pack</groupId>
+  		<artifactId>lzma-sdk-4j</artifactId>
+  		<version>9.22.0</version>
+  	</dependency>
 	</dependencies>
 </project>

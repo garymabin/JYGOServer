@@ -11,7 +11,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cn.garymb.ygoserver.conf.ConfigManager;
+import cn.garymb.ygoserver.conf.Configurator;
+import cn.garymb.ygoserver.server.YGOCoreMain;
 
 import com.almworks.sqlite4java.SQLiteConnection;
 import com.almworks.sqlite4java.SQLiteException;
@@ -26,7 +27,7 @@ public final class CardsManager {
 	private static CardsManager INSTANCE;
 	
 	private CardsManager() throws SQLiteException {
-		SQLiteConnection db = new SQLiteConnection(new File(ConfigManager.peekInstance().getDataBasePath()));
+		SQLiteConnection db = new SQLiteConnection(new File(YGOCoreMain.getConfigurator().getDataBasePath()));
 		db.open(true);
 		SQLiteStatement st = db.prepare("SELECT id, ot, alias, type, level, race, attribute, atk, def FROM datas");
 		try {

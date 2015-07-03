@@ -42,4 +42,6 @@ public final class PropertyKey {
 	public static final boolean AUTO_END_TURN_DEF_VALUE = true;
 	
 	public static final int OP_TIMEOUT_DEF_VALUE = 180;
+	
+	public static final String DEF_CLIENTS_MANAGER_CLASS_NAME = "cn.garymb.ygoserver.ygo.YGOClientsManager";
 }
