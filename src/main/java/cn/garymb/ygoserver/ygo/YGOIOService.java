@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 import cn.garymb.ygoserver.net.IOService;
 import cn.garymb.ygoserver.server.Packet;
-import cn.garymb.ygoserver.server.YGOIOProcessor;
+import cn.garymb.ygoserver.server.IOProcessor;
 
 public class YGOIOService<RefObject> extends IOService<RefObject> {
 
@@ -27,7 +27,7 @@ public class YGOIOService<RefObject> extends IOService<RefObject> {
 	private long totalPacketsReceived = 0;
 	private long totalPacketsSent = 0;
 
-	private YGOIOProcessor[] processors = null;
+	private IOProcessor[] processors = null;
 
 	private ConcurrentLinkedQueue<Packet> waitingPackets = new ConcurrentLinkedQueue<Packet>();
 
@@ -72,7 +72,7 @@ public class YGOIOService<RefObject> extends IOService<RefObject> {
 		if (processors != null) {
 			boolean stop = false;
 
-			for (YGOIOProcessor processor : processors) {
+			for (IOProcessor processor : processors) {
 				stop |= processor.processIncoming(this, packet);
 			}
 			if (stop) {
@@ -127,7 +127,7 @@ public class YGOIOService<RefObject> extends IOService<RefObject> {
 		super.setIOServiceListener(sl);
 	}
 
-	public void setProcessors(YGOIOProcessor[] processors) {
+	public void setProcessors(IOProcessor[] processors) {
 		this.processors = processors;
 	}
 
@@ -135,7 +135,7 @@ public class YGOIOService<RefObject> extends IOService<RefObject> {
 
 		// processing packet using io level processors
 		if (processors != null) {
-			for (YGOIOProcessor processor : processors) {
+			for (IOProcessor processor : processors) {
 				if (processor.processOutgoing(this, packet)) {
 					return;
 				}
@@ -166,7 +166,7 @@ public class YGOIOService<RefObject> extends IOService<RefObject> {
 
 		// notify io processors that all waiting packets were sent
 		if (processors != null) {
-			for (YGOIOProcessor processor : processors) {
+			for (IOProcessor processor : processors) {
 				processor.packetsSent(this);
 			}
 		}
@@ -198,6 +198,19 @@ public class YGOIOService<RefObject> extends IOService<RefObject> {
 
 		// by default do nothing and return false
 		return false;
+	}
+	
+	@Override
+	public void forceStop() {
+		boolean stop = false;
+		if (processors != null) {
+			for (IOProcessor processor : processors) {
+				stop |= processor.serviceStopped(this, false);
+			}
+		}
+		if (!stop) {
+			super.forceStop();
+		}
 	}
 
 }

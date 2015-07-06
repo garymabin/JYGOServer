@@ -12,7 +12,7 @@ import cn.garymb.ygoserver.ygo.YGOConnectionManager;
 import cn.garymb.ygoserver.ygo.YGOIOService;
 
 
-public interface YGOIOProcessor {
+public interface IOProcessor {
 	/**
 	 * Returns identifier of processor
 	 * 
@@ -68,17 +68,17 @@ public interface YGOIOProcessor {
 	 */
 	boolean serviceStopped(YGOIOService service, boolean streamClosed);
 	
-	/**
-	 * Sets connection manager instance for which this XMPPIOProcessor is used
-	 * 
-	 * @param connectionManager 
-	 */
-	void setConnectionManager(YGOConnectionManager connectionManager);
-	
-	/**
-	 * Method used for setting properties
-	 * 
-	 * @param props 
-	 */
-	void setProperties(Map<String,Object> props);
+//	/**
+//	 * Sets connection manager instance for which this XMPPIOProcessor is used
+//	 * 
+//	 * @param connectionManager 
+//	 */
+//	void setConnectionManager(YGOConnectionManager connectionManager);
+//	
+//	/**
+//	 * Method used for setting properties
+//	 * 
+//	 * @param props 
+//	 */
+//	void setProperties(Map<String,Object> props);
 }

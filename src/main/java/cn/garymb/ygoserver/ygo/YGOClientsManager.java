@@ -6,13 +6,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cn.garymb.ygoserver.server.Packet;
-import cn.garymb.ygoserver.server.YGOIOProcessor;
+import cn.garymb.ygoserver.server.IOProcessor;
 
 public class YGOClientsManager extends YGOConnectionManager<YGOIOService<Object>> {
 
 	private static final Logger log = Logger.getLogger(YGOClientsManager.class.getName());
 	
-	private YGOIOProcessor[] processors;
+	private IOProcessor[] processors;
 
 	@Override
 	protected YGOIOService<Object> getYGOIOService() {
