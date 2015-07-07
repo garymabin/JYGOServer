@@ -29,7 +29,7 @@ public interface IOProcessor {
 	 * @return true if packet should not be forwarded
 	 * @throws IOException 
 	 */
-	boolean processIncoming(YGOIOService service, Packet packet);
+	boolean processIncoming(YGOIOService<?> service, Packet packet);
 	
 	/**
 	 * Process outgoing packets as they are added to XMPPIOService outgoing 
@@ -40,7 +40,7 @@ public interface IOProcessor {
 	 * @return true if packet should be removed
 	 * @throws IOException 
 	 */
-	boolean processOutgoing(YGOIOService service, Packet packet);
+	boolean processOutgoing(YGOIOService<?> service, Packet packet);
 
 	/**
 	 * Method is called when all waiting data was written to socket.
@@ -48,7 +48,7 @@ public interface IOProcessor {
 	 * @param service
 	 * @throws IOException 
 	 */
-	void packetsSent(YGOIOService service) throws IOException;
+	void packetsSent(YGOIOService<?> service) throws IOException;
 	
 	/**
 	 * Process command execution which may be sent from other component and 
@@ -56,7 +56,7 @@ public interface IOProcessor {
 	 * 
 	 * @param packet 
 	 */
-	void processCommand(YGOIOService service, Packet packet);
+	void processCommand(YGOIOService<?> service, Packet packet);
 	
 	/**
 	 * Method called when XMPPIOService is closed.
@@ -66,7 +66,7 @@ public interface IOProcessor {
 	 * @return true if connecton manager should not be notified about stopping 
 	 *				of this service
 	 */
-	boolean serviceStopped(YGOIOService service, boolean streamClosed);
+	boolean serviceStopped(YGOIOService<?> service, boolean streamClosed);
 	
 //	/**
 //	 * Sets connection manager instance for which this XMPPIOProcessor is used

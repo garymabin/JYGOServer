@@ -392,7 +392,7 @@ public abstract class IOService<RefObject> implements Callable<IOService<?>> {
 		}		
 	}
 
-	protected void writeData(byte[] data) {
+	protected void writeData(ByteBuffer data) {
 
 		// Try to lock the data writing method
 		boolean locked = writeInProgress.tryLock();
@@ -410,24 +410,23 @@ public abstract class IOService<RefObject> implements Callable<IOService<?>> {
 		// Avoid concurrent calls here (one from call() and another from
 		// application)
 		try {
-			if ((data != null) && (data.length > 0)) {
+			if ((data != null) && (data.position() > 0)) {
 				if (log.isLoggable(Level.FINEST)) {
-					if (data.length < 256) {
+					if (data.position() < 256) {
 						log.log(Level.FINEST, "Socket: {0}, Writing data ({1}): {2}", new Object[] {
 								socketIO,
-								data.length, data });
+								data.position(), data.array() });
 					} else {
 						log.log(Level.FINEST, "Socket: {0}, Writing data: {1}", new Object[] {
 								socketIO,
-								data.length });
+								data.position() });
 					}
 				}
 
-				ByteBuffer dataBuffer = ByteBuffer.wrap(data);
-				socketIO.write(dataBuffer);
+				socketIO.write(data);
 				if (log.isLoggable(Level.FINEST)) {
 					log.log(Level.FINEST, "Socket: {0}, wrote: {1}", new Object[] { socketIO,
-							data.length });
+							data.position() });
 				}
 				// idx_start = idx_offset;
 				// idx_offset = Math.min(idx_start + out_buff_size, data.length());

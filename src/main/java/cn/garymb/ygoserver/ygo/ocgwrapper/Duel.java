@@ -49,4 +49,9 @@ public final class Duel {
 	public void addCard(int cardId, int owner, CardLocation location) {
 		OcgcoreBridge.new_card(mDuelPtr, cardId, (byte)owner, (byte)owner, location.byteValue(), (byte)0, (byte)0);
 	}
+
+
+	public void end() {
+		//TODO
+	}
 }

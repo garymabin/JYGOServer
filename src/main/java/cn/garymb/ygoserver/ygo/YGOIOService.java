@@ -158,7 +158,7 @@ public class YGOIOService<RefObject> extends IOService<RefObject> {
 			if (log.isLoggable(Level.FINEST)) {
 				log.log(Level.FINEST, "{0}, Sending packet: {1}", new Object[] { toString(), packet });
 			}
-			writeRawData(packet.getBytes());
+			writeRawData(packet.getBuffer());
 			if (log.isLoggable(Level.FINEST)) {
 				log.log(Level.FINEST, "{0}, SENT: {1}", new Object[] { toString(), packet.toString() });
 			}
@@ -172,7 +172,7 @@ public class YGOIOService<RefObject> extends IOService<RefObject> {
 		}
 	}
 
-	public void writeRawData(byte[] data) throws IOException {
+	public void writeRawData(ByteBuffer data) throws IOException {
 
 		// We change state of this object in this method
 		// It can be called by many threads simultanously

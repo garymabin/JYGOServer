@@ -100,7 +100,7 @@ public final class GameMessage {
 	
 	public static final int CTOS_RESPONSE = 0x1;
 	public static final int CTOS_UPDATE_DECK = 0x2;
-	public static final int CTOS_HANDLE_RESULT = 0x3;
+	public static final int CTOS_HAND_RESULT = 0x3;
 	public static final int CTOS_TP_RESULT = 0x4;
 	public static final int CTOS_PLAYER_INFO = 0x10;
 	public static final int CTOS_CREATE_GAME = 0x11;
@@ -136,8 +136,4 @@ public final class GameMessage {
 	public static final int STOC_HS_PLAYER_ENTER = 0x20;
 	public static final int STOC_HS_PLAYER_CHANGE = 0x21;
 	public static final int STOC_HS_WATCH_CHANGE = 0x22;
-	
-	
-	
-	
 }

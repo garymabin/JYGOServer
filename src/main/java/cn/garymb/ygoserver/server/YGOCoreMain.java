@@ -6,6 +6,7 @@
 package cn.garymb.ygoserver.server;
 
 import cn.garymb.ygoserver.conf.Configurator;
+import cn.garymb.ygoserver.ygo.GameManager;
 
 public final class YGOCoreMain {
 	
@@ -35,6 +36,7 @@ public final class YGOCoreMain {
 			amr = (AbstractMessageReceiver) Class.forName(server_class_name).newInstance();
 			amr.setName("ygoserver");
 			amr.start();
+			GameManager.setGameAsyncEventProcessor(amr);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

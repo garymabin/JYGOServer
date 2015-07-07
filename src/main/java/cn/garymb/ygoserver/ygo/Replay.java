@@ -25,7 +25,7 @@ public class Replay {
 	public static final int FLAG_TAG = 0x2;
 	
 	public static final int MAX_REPLAY_SIZE = 0x20000;
-	private boolean disabled;
+	private volatile boolean disabled;
 	private ReplayHeader header;
 	
 	private ByteBuffer mData;
@@ -39,11 +39,11 @@ public class Replay {
 		mData = ByteBuffer.allocate(MAX_REPLAY_SIZE);
 	}
 	
-	public void write(byte[] data) {
+	public synchronized void write(byte[] data) {
 		mData.put(data);
 	}
 	
-	public void end() {
+	public synchronized void end() {
 		if (isDisabled()) {
 			return;
 		}

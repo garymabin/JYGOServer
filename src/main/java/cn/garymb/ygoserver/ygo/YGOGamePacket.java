@@ -13,7 +13,18 @@ public class YGOGamePacket extends Packet {
 		super(content);
 	}
 	
+	public YGOGamePacket(int ctos) {
+		super();
+		writeStoc(ctos);
+	}
+
 	public int readCtos() {
-		return mBuffer.get();
+		mBuffer.rewind();
+		return readByte();
+	}
+	
+	public void writeStoc(int ctos) {
+		mBuffer.clear();
+		writeByte(ctos);
 	}
 }

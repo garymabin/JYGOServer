@@ -12,5 +12,6 @@ public abstract class GameConfig {
 	public int drawCount;
 	public int gameTimer;
 	public String name;
-	public abstract void load(String info);
+	public abstract void create(String info);
+	public abstract void create(YGOGamePacket packet);
 }
