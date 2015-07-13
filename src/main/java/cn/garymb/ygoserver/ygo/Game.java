@@ -15,6 +15,37 @@ import cn.garymb.ygoserver.ygo.ocgwrapper.type.PlayerType;
 
 public class Game {
 
+	public class SideEndTimeTask extends TimerTask {
+
+		public void run() {
+			synchronized (Game.this) {
+				if (!mIsReady[0] && !mIsReady[1]) {
+					mState = GameState.End;
+					end();
+					return;
+				}
+				surrender(!mIsReady[0] ? mPlayers[0] : mPlayers[1], 3, true);
+				mState = GameState.End;
+				end();
+			}
+		}
+
+	}
+
+	public class SideAlarmTimeTask extends TimerTask {
+		
+		private int mTimeLeft;
+		
+		public SideAlarmTimeTask(int timeInSec) {
+			mTimeLeft = timeInSec;
+		}
+
+		public void run() {
+			serverMessage("You have " + mTimeLeft + " seconds left.");
+		}
+
+	}
+
 	private GameState mState;
 	private GameConfig mConfig;
 	private Player[] mPlayers;
@@ -35,7 +66,7 @@ public class Game {
 	private Duel mDuel;
 	private Replay mReplay;
 	
-	private TimerTask mChangeSideTask = null;
+	private TimerTask[] mChangeSideTasks = null;
 
 	public Game(GameRoom gameRoom, GameConfig config) {
 		mConfig = config;
@@ -267,13 +298,9 @@ public class Game {
 			mState = GameState.Side;
 			sendToPlayers(new YGOGamePacket(GameMessage.STOC_CHANGE_SIDE));
 			sendToObservers(new YGOGamePacket(GameMessage.STOC_WAITING_SIDE));
-			mChangeSideTask = new TimerTask() {
-				
-				public void run() {
-					
-				}
-			};
-			GameManager.submit(mChangeSideTask, 120 * 1000);
+			mChangeSideTasks = new TimerTask[4];
+//			GameManager.submit(mChangeSideTask, 60 * 1000);
+//			GameManager.submit(mChangeSideTask, 90 * 1000);
 		}
 	}
 
@@ -303,6 +330,11 @@ public class Game {
 				mMatchResult[mDuelCount++] = player;
 			}
 		}
+	}
+	
+	private void end() {
+		sendToAll(new YGOGamePacket(GameMessage.STOC_DUEL_END));
+		//FIXME: how to perform close delayed;
 	}
 
 	private void matchKill() {
