@@ -56,4 +56,24 @@ public class GameRoom {
 		client.forceStop();
 		mGame.removePlayer(client.getBoundedPlayer());
 	}
+
+	public void setReady(GameClient client, boolean b) {
+		mGame.setReady(client, b);
+	}
+
+	public void kick(GameClient client, int pos) {
+		mGame.kick(client, pos);
+	}
+
+	public void startDuel(GameClient client) {
+		mGame.startDuel(client);
+	}
+
+	public void handResult(GameClient client, int res) {
+		mGame.handResult(client, res);
+	}
+
+	public void tpResult(GameClient client, boolean tp) {
+		mGame.tpResult(client, tp);
+	}
 }

@@ -11,6 +11,8 @@ public class Player {
 	
 	private String name;
 	
+	private Deck mDeck;
+	
 	private int type;
 
 	public Player(GameClient gameClient) {
@@ -44,5 +46,13 @@ public class Player {
 			p.writeByte((byte)(this.type + (isHostPlayer ? PlayerType.Host.intValue() : 0)));
 			c.addPacketToSend(p);
 		}
+	}
+
+	public Deck getDeck() {
+		return mDeck;
+	}
+
+	/*package*/ void setDeck(Deck mDeck) {
+		this.mDeck = mDeck;
 	}
 }

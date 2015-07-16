@@ -43,6 +43,10 @@ public class Replay {
 		mData.put(data);
 	}
 	
+	public synchronized void writeInt32(int value) {
+		mData.putInt(value);
+	}
+	
 	public synchronized void end() {
 		if (isDisabled()) {
 			return;

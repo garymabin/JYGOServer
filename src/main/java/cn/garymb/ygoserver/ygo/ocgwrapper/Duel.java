@@ -35,7 +35,7 @@ public final class Duel {
 	}
 	
 	
-	public static Duel create(int seed) {
+	public static Duel create(long seed) {
 		MTRandom random = new MTRandom(seed);
 		int duelPtr = OcgcoreBridge.create_duel(random.nextInt());
 		return new Duel(duelPtr);

@@ -46,4 +46,9 @@ public class Banlist {
 		}
 		mHash = mHash ^ ((cardId << 18) | (cardId >> 14)) ^ ((cardId << (27 + quantity)) | (cardId >> (5 - quantity)));
 	}
+	
+	@Override
+	public int hashCode() {
+		return mHash;
+	}
 }
