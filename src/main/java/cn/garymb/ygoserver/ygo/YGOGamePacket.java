@@ -9,6 +9,10 @@ import cn.garymb.ygoserver.server.Packet;
 
 public class YGOGamePacket extends Packet {
 	
+	public YGOGamePacket(YGOGamePacket p) {
+		super(p);
+	}
+	
 	public YGOGamePacket(byte[] content) {
 		super(content);
 	}
@@ -18,7 +22,7 @@ public class YGOGamePacket extends Packet {
 		writeStoc(ctos);
 	}
 
-	public int readCtos() {
+	public int readMsgType() {
 		mBuffer.rewind();
 		return readByte();
 	}

@@ -24,7 +24,7 @@ public enum CardLocation {
 		this.value = value;
 	}
 	
-	public byte byteValue() {
-		return (byte) value;
+	public int intValue() {
+		return value;
 	}
 }

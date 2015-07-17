@@ -3,6 +3,7 @@ package cn.garymb.ygoserver.ygo;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.garymb.ygoserver.server.Packet;
 import edu.emory.mathcs.backport.java.util.Collections;
 
 public class GameRoom {
@@ -22,6 +23,7 @@ public class GameRoom {
 
 	public void addClient(GameClient client) {
 		mClients.add(client);
+		mGame.addPlayer(client.getBoundedPlayer());
 	}
 
 	public void removeClient(GameClient client) {
@@ -75,5 +77,17 @@ public class GameRoom {
 
 	public void tpResult(GameClient client, boolean tp) {
 		mGame.tpResult(client, tp);
+	}
+
+	public void updateDeck(GameClient client, Packet packet) {
+		mGame.updateDeck(client, packet);
+	}
+
+	public void reponse(GameClient client, Packet packet) {
+		mGame.response(client, packet);
+	}
+
+	public void surrender(GameClient client, int i) {
+		mGame.surrenderLocked(client, i);
 	}
 }

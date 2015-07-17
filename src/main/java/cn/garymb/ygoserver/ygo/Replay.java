@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import SevenZip.Compression.LZMA.Encoder;
-import cn.garymb.ygoserver.conf.Configurator;
 import cn.garymb.ygoserver.server.YGOCoreMain;
 
 public class Replay {
@@ -39,12 +38,23 @@ public class Replay {
 		mData = ByteBuffer.allocate(MAX_REPLAY_SIZE);
 	}
 	
+	public synchronized void writeByte(int b) {
+		mData.put((byte)b);
+	}
+	
 	public synchronized void write(byte[] data) {
 		mData.put(data);
 	}
 	
 	public synchronized void writeInt32(int value) {
 		mData.putInt(value);
+	}
+	
+	public synchronized void check() {
+		if (mData.position() > MAX_REPLAY_SIZE) {
+			mData.clear();
+			setDisabled(true);
+		}
 	}
 	
 	public synchronized void end() {

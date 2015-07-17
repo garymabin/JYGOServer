@@ -66,18 +66,18 @@ JNIEXPORT void JNICALL Java_cn_garymb_ygoserver_ygo_ocgwrapper_OcgcoreBridge_set
 /*
  * Class:     cn_garymb_ygoserver_ygo_ocgwrapper_OcgcoreBridge
  * Method:    get_log_message
- * Signature: (I[B)I
+ * Signature: (ILjava/nio/ByteBuffer;)I
  */
 JNIEXPORT jint JNICALL Java_cn_garymb_ygoserver_ygo_ocgwrapper_OcgcoreBridge_get_1log_1message
-  (JNIEnv *, jclass, jint, jbyteArray);
+  (JNIEnv *, jclass, jint, jobject);
 
 /*
  * Class:     cn_garymb_ygoserver_ygo_ocgwrapper_OcgcoreBridge
  * Method:    get_message
- * Signature: (I[B)I
+ * Signature: (ILjava/nio/ByteBuffer;)I
  */
 JNIEXPORT jint JNICALL Java_cn_garymb_ygoserver_ygo_ocgwrapper_OcgcoreBridge_get_1message
-  (JNIEnv *, jclass, jint, jbyteArray);
+  (JNIEnv *, jclass, jint, jobject);
 
 /*
  * Class:     cn_garymb_ygoserver_ygo_ocgwrapper_OcgcoreBridge

@@ -5,6 +5,7 @@ import java.io.IOException;
 import cn.garymb.ygoserver.server.IOProcessor;
 import cn.garymb.ygoserver.server.Packet;
 import cn.garymb.ygoserver.ygo.ocgwrapper.type.GameMessage;
+import cn.garymb.ygoserver.ygo.ocgwrapper.type.PlayerType;
 
 public class DuelProcessor implements IOProcessor {
 
@@ -40,14 +41,37 @@ public class DuelProcessor implements IOProcessor {
 		case GameMessage.CTOS_TP_RESULT:
 			onTpResult((GameClient) service, packet);
 		case GameMessage.CTOS_UPDATE_DECK:
+			onUpdateDeck((GameClient) service, packet);
 		case GameMessage.CTOS_RESPONSE:
+			onResponse((GameClient) service, packet);
 		case GameMessage.CTOS_SURRENDER:
+			onSurrender((GameClient) service, packet);
 			break;
-
 		default:
 			break;
 		}
 		return false;
+	}
+
+	private void onSurrender(GameClient client, Packet packet) {
+		GameRoom room = client.getBoundedGameRoom();
+		if (room != null) {
+			room.surrender(client, 0);
+		}
+	}
+
+	private void onResponse(GameClient client, Packet packet) {
+		GameRoom room = client.getBoundedGameRoom();
+		if (room != null) {
+			room.reponse(client, packet);
+		}
+	}
+
+	private void onUpdateDeck(GameClient client, Packet packet) {
+		GameRoom room = client.getBoundedGameRoom();
+		if (room != null) {
+			room.updateDeck(client, packet);
+		}
 	}
 
 	private void onTpResult(GameClient client, Packet packet) {

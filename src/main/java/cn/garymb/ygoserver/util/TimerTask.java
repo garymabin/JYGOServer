@@ -44,4 +44,10 @@ public abstract class TimerTask implements Runnable {
 		}
 	}
 	
+	public void purge() {
+		if (future != null) {
+			future.cancel(true);
+		}
+	}
+	
 }

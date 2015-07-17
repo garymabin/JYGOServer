@@ -26,9 +26,9 @@ public final class OcgcoreBridge {
 	
 	public static native void set_player_info(int duelPtr, int playerId, int lp, int startcount, int drawcount);
 	
-	public static native int get_log_message(int duelPtr, byte[] buf);
+	public static native int get_log_message(int duelPtr, ByteBuffer buf);
 	
-	public static native int get_message(int duelPtr, byte[] buf);
+	public static native int get_message(int duelPtr, ByteBuffer buf);
 	
 	public static native int process(int duelPtr);
 	

@@ -36,9 +36,9 @@ public final class GameMessage {
 	public static final int SHUFFLE_HAND = 33;
 	public static final int REFRESH_DECK = 34;
 	public static final int SWAP_GRAVE_DECK = 35;
-	public static final int SHUFFLE_SET_DECK = 36;
+	public static final int SHUFFLE_SET_CARD = 36;
 	public static final int REVERSE_DECK = 37;
-	public static final int DESKTOP = 38;
+	public static final int DECKTOP = 38;
 	public static final int NEW_TURN = 40;
 	public static final int NEW_PHASE = 41;
 	public static final int MOVE = 50;

@@ -15,6 +15,12 @@ public class Packet {
 	protected ByteBuffer mBuffer;
 	private String mId;
 	
+	public Packet(Packet p) {
+		mBuffer = ByteBuffer.allocate(DEFAULT_S2C_PACKET_SIZE);
+		mBuffer.put(p.mBuffer);
+		mId = UUID.randomUUID().toString();
+	}
+	
 	public Packet() {
 		mBuffer = ByteBuffer.allocate(DEFAULT_S2C_PACKET_SIZE);
 		mId = UUID.randomUUID().toString();
@@ -23,6 +29,18 @@ public class Packet {
 	public Packet(byte[] content) {
 		mBuffer = ByteBuffer.wrap(content);
 		mId = UUID.randomUUID().toString();
+	}
+	
+	public void write(byte[] content, int start, int end) {
+		if (content == null) {
+			return;
+		}
+		int length = end - start;
+		int remaining = mBuffer.remaining();
+		if (remaining < length) {
+			tryExtendBuffer(mBuffer, length - remaining);
+		}
+		mBuffer.put(content, start, end);
 	}
 	
 	public void write(byte[] content) {
@@ -46,6 +64,13 @@ public class Packet {
 	
 	public void writeInt32(int s) {
 		mBuffer.putInt(s);
+	}
+	
+	public void relaceByteAt(int pos, int b) {
+		int oldPos = mBuffer.position();
+		mBuffer.position(pos);
+		mBuffer.put((byte)b);
+		mBuffer.position(oldPos);
 	}
 
 	private void tryExtendBuffer(ByteBuffer mBuffer2, int requiredSize) {
